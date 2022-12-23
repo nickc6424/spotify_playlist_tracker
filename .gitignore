@@ -1,2 +1,7 @@
+.cache
+
+# Config file
+secrets.cfg
+
 # Virtual environment
 venv
