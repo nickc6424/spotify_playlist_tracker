@@ -1,2 +1,8 @@
+.cache
+__pycache__
+
+# Config file
+secrets.cfg
+
 # Virtual environment
 venv
