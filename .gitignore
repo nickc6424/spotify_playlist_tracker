@@ -4,5 +4,8 @@ __pycache__
 # Config file
 secrets.cfg
 
+# Download folder created by a Make command
+s3_download
+
 # Virtual environment
 venv
