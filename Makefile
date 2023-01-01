@@ -15,6 +15,26 @@ venv: create-venv install-requirements ## Create virtual environment + install p
 
 
 # -------------------------------
+# 			 Docker 
+#--------------------------------
+
+start:
+	sudo docker compose up local-s3 --detach
+
+stop:
+	sudo docker compose down --volumes
+
+s3-read: ## View the files in the S3 bucket
+	aws s3 ls s3://playlist-extracts --endpoint-url=http://localhost:4566 --recursive
+
+s3-drop: ## Drop the S3 bucket
+	aws s3 rb s3://playlist-extracts --endpoint-url=http://localhost:4566 --force
+
+s3-dl: ## Download files from the S3 bucket
+	aws s3 cp s3://playlist-extracts ./s3_download/ --endpoint-url=http://localhost:4566 --recursive --include "backup/*"
+
+
+# -------------------------------
 # 			 Testing 
 #--------------------------------
 
