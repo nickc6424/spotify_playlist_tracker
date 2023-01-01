@@ -10,6 +10,7 @@ def create_s3_bucket(s3_client: boto3.client, s3_bucket_name: str, region: str) 
     Parameters:
         s3_client: Object representing a session with S3
         s3_bucket_name: Name of S3 bucket to create
+        region: The AWS region to store the bucket in
     Returns:
         Response to the create attempt.
     """
