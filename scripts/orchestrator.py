@@ -8,5 +8,6 @@ def main():
     archive.main(s3_bucket_name, data_extract)
     load.main(data_extract)
 
+
 if __name__ == "__main__":
     main()
