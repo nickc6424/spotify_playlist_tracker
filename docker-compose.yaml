@@ -12,3 +12,18 @@ services:
       interval: 5s
       timeout: 60s
       retries: 30
+  
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: spotify
+      POSTGRES_PASSWORD: spotify
+      POSTGRES_DB: spotify
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "spotify"]
+      interval: 5s
+      retries: 5
+    restart: always
+
