@@ -1,6 +1,5 @@
 import psycopg2
 from psycopg2.sql import SQL, Identifier
-from psycopg2.extras import execute_values
 from helper_functions import read_config
 import json
 
