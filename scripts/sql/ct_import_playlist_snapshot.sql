@@ -1,6 +1,6 @@
-CREATE TABLE IF NOT EXISTS spotify.import.tbl_playlist_snapshot
+CREATE TABLE IF NOT EXISTS import.tbl_playlist_snapshot
 (
-    batch_id serial PRIMARY KEY,
+    snapshot_id serial PRIMARY KEY,
     json_extract jsonb NOT NULL,
-    inserted_at timestamp NOT NULL DEFAULT now()
+    snapshot_timestamp timestamp NOT NULL DEFAULT now()
 );

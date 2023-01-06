@@ -6,6 +6,7 @@ def main():
     s3_bucket_name = "playlist-extracts"
     data_extract = extract.get_songs()
     archive.main(s3_bucket_name, data_extract)
+    load.setup_database()
     load.main(data_extract)
 
 
