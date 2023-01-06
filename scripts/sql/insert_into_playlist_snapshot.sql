@@ -1,1 +1,1 @@
-INSERT INTO spotify.import.tbl_playlist_snapshot(json_extract) VALUES (%s);
+INSERT INTO import.tbl_playlist_snapshot(json_extract) VALUES (%s);
