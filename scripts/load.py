@@ -15,23 +15,6 @@ def read_db_connection():
     }
 
 
-def get_sql_from_script(filepath: str) -> str:
-    """Extracts the contents of a SQL script and returns it as a string."""
-    with open(filepath, "r") as script:
-        sql = script.read()
-    return sql
-
-
-def execute_query_from_script(sql_filepath: str, vars=None):
-    """Executes a SQL script against the database.
-    Parameters:
-        sql_filepath: The filepath to the SQL script
-        vars: Optional parameters to be passed into the SQL script
-    """
-    sql = get_sql_from_script(sql_filepath)
-    execute_query(sql, vars)
-
-
 def execute_query(sql: str, vars=None):
     """Executes a SQL string against the database.
     Parameters:
@@ -52,6 +35,23 @@ def execute_query(sql: str, vars=None):
 
     # Close the connection - context manager won't do this for psycopg2
     conn.close()
+
+
+def get_sql_from_script(filepath: str) -> str:
+    """Extracts the contents of a SQL script and returns it as a string."""
+    with open(filepath, "r") as script:
+        sql = script.read()
+    return sql
+
+
+def execute_query_from_script(sql_filepath: str, vars=None):
+    """Executes a SQL script against the database.
+    Parameters:
+        sql_filepath: The filepath to the SQL script
+        vars: Optional parameters to be passed into the SQL script
+    """
+    sql = get_sql_from_script(sql_filepath)
+    execute_query(sql, vars)
 
 
 def create_schema(schemaName: str):
