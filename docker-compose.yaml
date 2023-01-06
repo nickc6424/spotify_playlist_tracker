@@ -1,0 +1,29 @@
+services:
+  local-s3:
+    image: localstack/localstack
+    ports:
+      - 4566:4566
+    environment:
+      - LOCALSTACK_SERVICES=s3
+      - AWS_ACCESS_KEY_ID=something_not_empty
+      - AWS_SECRET_ACCESS_KEY=something_not_empty
+    healthcheck:
+      test: ["CMD", "aws", "s3", "--endpoint-url", "http://localhost:4566", "ls"]
+      interval: 5s
+      timeout: 60s
+      retries: 30
+  
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: spotify
+      POSTGRES_PASSWORD: spotify
+      POSTGRES_DB: spotify
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "spotify"]
+      interval: 5s
+      retries: 5
+    restart: always
+
