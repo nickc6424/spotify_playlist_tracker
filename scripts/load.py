@@ -57,20 +57,8 @@ def execute_query(sql: str, vars=None):
 def create_schema(schemaName: str):
     """Creates a schema in the database."""
     sql = get_sql_from_script("./scripts/sql/create_schema.sql")
-    with psycopg2.connect(**read_db_connection()) as conn:
-        try:
-            with conn.cursor() as cursor:
-                cursor.execute(SQL(sql).format(Identifier(schemaName)))
-        except Exception as e:
-            # Rollback changes if exception
-            conn.rollback()
-            raise e
-        finally:
-            # Commit changes to the database
-            conn.commit()
-
-    # Close the connection - context manager won't do this for psycopg2
-    conn.close()
+    sql_formatted = SQL(sql).format(Identifier(schemaName))
+    execute_query(sql_formatted)
 
 
 def execute_stored_procedure(schema: str, procedure_name: str):
