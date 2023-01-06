@@ -5,6 +5,7 @@ import json
 
 
 def read_db_connection():
+    """Reads the database connection details from the configuration file."""
     return {
         "host": read_config("secrets.cfg", "database", "host"),
         "user": read_config("secrets.cfg", "database", "user"),
@@ -14,18 +15,29 @@ def read_db_connection():
     }
 
 
-def get_sql_from_script(filepath: str):
+def get_sql_from_script(filepath: str) -> str:
+    """Extracts the contents of a SQL script and returns it as a string."""
     with open(filepath, "r") as script:
         sql = script.read()
     return sql
 
 
 def execute_query_from_script(sql_filepath: str, vars=None):
+    """Executes a SQL script against the database.
+    Parameters:
+        sql_filepath: The filepath to the SQL script
+        vars: Optional parameters to be passed into the SQL script
+    """
     sql = get_sql_from_script(sql_filepath)
     execute_query(sql, vars)
 
 
 def execute_query(sql: str, vars=None):
+    """Executes a SQL string against the database.
+    Parameters:
+        sql: The SQL string to execute
+        vars: Optional parameters to be passed into the SQL string
+    """
     with psycopg2.connect(**read_db_connection()) as conn:
         try:
             with conn.cursor() as cursor:
@@ -43,6 +55,7 @@ def execute_query(sql: str, vars=None):
 
 
 def create_schema(schemaName: str):
+    """Creates a schema in the database."""
     sql = get_sql_from_script("./scripts/sql/create_schema.sql")
     with psycopg2.connect(**read_db_connection()) as conn:
         try:
@@ -61,14 +74,17 @@ def create_schema(schemaName: str):
 
 
 def execute_stored_procedure(schema: str, procedure_name: str):
+    """Executes a stored procedure in the database."""
     execute_query(f'CALL "{schema}"."{procedure_name}"();')
 
 
 def truncate_table(schema: str, table_name: str):
+    """Truncates a database table."""
     execute_query(f'TRUNCATE TABLE "{schema}"."{table_name}";')
 
 
 def setup_database():
+    """Creates all the database objects needed to store and process the data."""
     # Create schemas
     create_schema("import")
     create_schema("staging")
