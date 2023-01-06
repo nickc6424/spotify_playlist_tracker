@@ -68,7 +68,9 @@ def execute_stored_procedure(schema: str, procedure_name: str):
 
 def truncate_table(schema: str, table_name: str):
     """Truncates a database table."""
-    execute_query(f'TRUNCATE TABLE "{schema}"."{table_name}";')
+    sql = get_sql_from_script("./scripts/sql/truncate_table.sql")
+    sql_formatted = SQL(sql).format(Identifier(schema), Identifier(table_name))
+    execute_query(sql_formatted)
 
 
 def setup_database():
