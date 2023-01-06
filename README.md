@@ -30,3 +30,9 @@ You are also required to generate a one-time client ID and client secret on Spot
 Generation of these credentials can be done by creating an application here:
 https://developer.spotify.com/dashboard/applications
 
+
+## Future development plans
+- Implement orchestration with Airflow
+- Add logging
+- Tidy up legacy Make commands and add a Run command
+
