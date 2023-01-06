@@ -62,8 +62,10 @@ def create_schema(schemaName: str):
 
 
 def execute_stored_procedure(schema: str, procedure_name: str):
-    """Executes a stored procedure in the database."""
-    execute_query(f'CALL "{schema}"."{procedure_name}"();')
+    """Executes a stored procedure in the database, assuming no input parameters."""
+    sql = get_sql_from_script("./scripts/sql/call_stored_procedure.sql")
+    sql_formatted = SQL(sql).format(Identifier(schema), Identifier(procedure_name))
+    execute_query(sql_formatted)
 
 
 def truncate_table(schema: str, table_name: str):
